@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import edu.ius.c490.spacexnotifier.api.SpacexApi
 import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,24 +17,24 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-private const val TAG = "FlickrFetchr"
+private const val TAG = "SpacexFetchr"
 
 class SpacexFetchr {
     private val spacexApi: SpacexApi
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.flickr.com")
+            .baseUrl("https://api.spacexdata.com/v3/launches/upcoming?")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         spacexApi = retrofit.create(SpacexApi::class.java)
     }
 
-    fun fetchContents(): LiveData<String> {
+    fun fetchLaunches(): LiveData<String>  {
         val responseLiveData: MutableLiveData<String> = MutableLiveData()
-        val flickrRequest = spacexApi.fetchContents()
+        val spacexRequest = spacexApi.fetchContents()
 
-        flickrRequest.enqueue(object: Callback<String> {
+        spacexRequest.enqueue(object: Callback<String> {
             override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.e(TAG, "Request failed: ${t}")
             }
@@ -45,31 +46,6 @@ class SpacexFetchr {
 
         })
 
-        return responseLiveData
-    }
-    fun fetchPhotos(): LiveData<List<GalleryItem>> {
-        val responseLiveData: MutableLiveData<List<GalleryItem>> = MutableLiveData()
-        flickrApi.fetchPhotos().enqueue(object: Callback<FlickrResponse> {
-            override fun onResponse(
-                call: Call<FlickrResponse>,
-                response: Response<FlickrResponse>
-            ) {
-                val flickrResponse = response.body()
-                val photoResponse = flickrResponse?.photos
-                Log.d(TAG, "Number of photos: ${photoResponse?.total}")
-                var galleryItems = photoResponse?.galleryItems
-                    ?: mutableListOf()
-                galleryItems = galleryItems.filterNot {
-                    it.url.isBlank()
-                }
-                responseLiveData.value = galleryItems
-            }
-
-            override fun onFailure(call: Call<FlickrResponse>, t: Throwable) {
-                Log.d(TAG, "$t")
-            }
-
-        })
         return responseLiveData
     }
 
