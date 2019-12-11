@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.DetailFragment">
+
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/mission_text_view"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"/>
+
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/time_text_view"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@id/mission_text_view"
+        android:background="@color/cardview_light_background"/>
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/launchsite_text_view"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@id/time_text_view"
+        android:background="@color/cardview_light_background"/>
+
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/rocket_name_view"
+        android:background="@color/cardview_light_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/launchsite_text_view"
+        android:textSize="25sp"
+        android:textColor="@color/colorPrimary" />
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/mission_detail_view"
+        android:scrollbars = "vertical"
+        android:background="@color/cardview_light_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rocket_name_view"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
+        android:lines="20" />
+
+</RelativeLayout>
